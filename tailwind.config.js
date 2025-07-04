@@ -58,7 +58,19 @@ module.exports = {
   			"color-2": "hsl(var(--color-2))",
   			"color-3": "hsl(var(--color-3))",
   			"color-4": "hsl(var(--color-4))",
-  			"color-5": "hsl(var(--color-5))"
+  			"color-5": "hsl(var(--color-5))",
+  			neutral: {
+  				50: '#fafafa',
+  				100: '#f5f5f5',
+  				200: '#e5e5e5',
+  				300: '#d4d4d4',
+  				400: '#a3a3a3',
+  				500: '#737373',
+  				600: '#525252',
+  				700: '#404040',
+  				800: '#262626',
+  				900: '#171717',
+  			}
   		},
   		animation: {
   			rainbow: "rainbow var(--speed, 2s) infinite linear",
@@ -68,6 +80,10 @@ module.exports = {
   				"0%": { "background-position": "0%" },
   				"100%": { "background-position": "200%" },
   			},
+  		},
+  		backgroundImage: {
+  			'grid-small-neutral-200': 'url("data:image/svg+xml,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 32 32\' width=\'32\' height=\'32\' fill=\'none\' stroke=\'rgb(229 229 229 / 0.5)\'%3e%3cpath d=\'m0 .5h32m-32 32v-32\'/%3e%3c/svg%3e")',
+  			'grid-small-neutral-800': 'url("data:image/svg+xml,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 32 32\' width=\'32\' height=\'32\' fill=\'none\' stroke=\'rgb(64 64 64 / 0.5)\'%3e%3cpath d=\'m0 .5h32m-32 32v-32\'/%3e%3c/svg%3e")',
   		}
   	}
   },
