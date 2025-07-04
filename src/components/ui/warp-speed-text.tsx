@@ -9,8 +9,35 @@ interface WarpSpeedTextProps {
 export function WarpSpeedText({ children, className = '' }: WarpSpeedTextProps) {
   const [translateX, setTranslateX] = React.useState(-32.155)
   const [textTransform, setTextTransform] = React.useState({ x: -3.26815, y: 3.26815, scale: 0.8 })
+  const [particles1, setParticles1] = React.useState<Array<{left: number, top: number, delay: number, duration: number}>>([])
+  const [particles2, setParticles2] = React.useState<Array<{left: number, top: number, delay: number, duration: number}>>([])
+  const [isClient, setIsClient] = React.useState(false)
 
   React.useEffect(() => {
+    setIsClient(true)
+    
+    // Generate particles only on client side
+    const generateParticles1 = Array.from({ length: 20 }, () => ({
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      delay: Math.random() * 2,
+      duration: 1 + Math.random() * 2
+    }))
+    
+    const generateParticles2 = Array.from({ length: 15 }, () => ({
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      delay: Math.random() * 2 + 0.5,
+      duration: 1.5 + Math.random() * 2
+    }))
+    
+    setParticles1(generateParticles1)
+    setParticles2(generateParticles2)
+  }, [])
+
+  React.useEffect(() => {
+    if (!isClient) return
+    
     const interval = setInterval(() => {
       setTranslateX(prev => {
         const newVal = prev + 0.2
@@ -24,13 +51,13 @@ export function WarpSpeedText({ children, className = '' }: WarpSpeedTextProps) 
     }, 100)
 
     return () => clearInterval(interval)
-  }, [])
+  }, [isClient])
 
   return (
     <div className={`bg-grid-small-neutral-200 hover:bg-grid-small-neutral-800 dark:bg-grid-small-neutral-800 group relative inline-block rounded-sm bg-neutral-100 px-2 py-2 transition duration-200 hover:bg-neutral-900 dark:bg-neutral-900 ${className}`}>
       {/* Animated Background */}
       <div className="absolute inset-0 h-full w-full overflow-hidden" style={{ opacity: 1 }}>
-        <div className="flex h-full w-[200%]" style={{ transform: `translateX(${translateX}%)` }}>
+        <div className="flex h-full w-[200%]" style={{ transform: isClient ? `translateX(${translateX}%)` : `translateX(-32.155%)` }}>
           <div className="opacity-0 h-full w-full" style={{ opacity: 1 }}>
             <div className="h-full w-full">
               <div 
@@ -42,20 +69,22 @@ export function WarpSpeedText({ children, className = '' }: WarpSpeedTextProps) 
                 style={{ width: '100%', height: '100%' }}
               />
               {/* Particles effect */}
-              <div className="absolute inset-0 w-full h-full overflow-hidden">
-                {Array.from({ length: 20 }, (_, i) => (
-                  <div
-                    key={i}
-                    className="absolute w-0.5 h-0.5 bg-blue-400/30 rounded-full animate-ping"
-                    style={{
-                      left: `${Math.random() * 100}%`,
-                      top: `${Math.random() * 100}%`,
-                      animationDelay: `${Math.random() * 2}s`,
-                      animationDuration: `${1 + Math.random() * 2}s`
-                    }}
-                  />
-                ))}
-              </div>
+              {isClient && (
+                <div className="absolute inset-0 w-full h-full overflow-hidden">
+                  {particles1.map((particle, i) => (
+                    <div
+                      key={i}
+                      className="absolute w-0.5 h-0.5 bg-blue-400/30 rounded-full animate-ping"
+                      style={{
+                        left: `${particle.left}%`,
+                        top: `${particle.top}%`,
+                        animationDelay: `${particle.delay}s`,
+                        animationDuration: `${particle.duration}s`
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
           </div>
           <div className="opacity-0 h-full w-full" style={{ opacity: 1 }}>
@@ -69,20 +98,22 @@ export function WarpSpeedText({ children, className = '' }: WarpSpeedTextProps) 
                 style={{ width: '100%', height: '100%', animationDelay: '0.5s' }}
               />
               {/* Particles effect */}
-              <div className="absolute inset-0 w-full h-full overflow-hidden">
-                {Array.from({ length: 15 }, (_, i) => (
-                  <div
-                    key={i}
-                    className="absolute w-0.5 h-0.5 bg-cyan-400/30 rounded-full animate-ping"
-                    style={{
-                      left: `${Math.random() * 100}%`,
-                      top: `${Math.random() * 100}%`,
-                      animationDelay: `${Math.random() * 2 + 0.5}s`,
-                      animationDuration: `${1.5 + Math.random() * 2}s`
-                    }}
-                  />
-                ))}
-              </div>
+              {isClient && (
+                <div className="absolute inset-0 w-full h-full overflow-hidden">
+                  {particles2.map((particle, i) => (
+                    <div
+                      key={i}
+                      className="absolute w-0.5 h-0.5 bg-cyan-400/30 rounded-full animate-ping"
+                      style={{
+                        left: `${particle.left}%`,
+                        top: `${particle.top}%`,
+                        animationDelay: `${particle.delay}s`,
+                        animationDuration: `${particle.duration}s`
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -192,7 +223,7 @@ export function WarpSpeedText({ children, className = '' }: WarpSpeedTextProps) 
       {/* Main text */}
       <span 
         className="relative z-20 inline-block text-neutral-900 transition duration-200 [text-shadow:0_0_rgba(0,0,0,0.1)] group-hover:text-white dark:text-white"
-        style={{ transform: `translateX(${textTransform.x}px) translateY(${textTransform.y}px) scale(${textTransform.scale})` }}
+        style={{ transform: isClient ? `translateX(${textTransform.x}px) translateY(${textTransform.y}px) scale(${textTransform.scale})` : `translateX(-3.26815px) translateY(3.26815px) scale(0.8)` }}
       >
         {children}
       </span>
