@@ -41,6 +41,21 @@ export function WarpSpeedText({ children, className = '' }: WarpSpeedTextProps) 
                 className="absolute inset-0 w-full h-full bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.1)_0%,transparent_50%)] animate-pulse"
                 style={{ width: '100%', height: '100%' }}
               />
+              {/* Particles effect */}
+              <div className="absolute inset-0 w-full h-full overflow-hidden">
+                {Array.from({ length: 20 }, (_, i) => (
+                  <div
+                    key={i}
+                    className="absolute w-0.5 h-0.5 bg-blue-400/30 rounded-full animate-ping"
+                    style={{
+                      left: `${Math.random() * 100}%`,
+                      top: `${Math.random() * 100}%`,
+                      animationDelay: `${Math.random() * 2}s`,
+                      animationDuration: `${1 + Math.random() * 2}s`
+                    }}
+                  />
+                ))}
+              </div>
             </div>
           </div>
           <div className="opacity-0 h-full w-full" style={{ opacity: 1 }}>
@@ -53,6 +68,21 @@ export function WarpSpeedText({ children, className = '' }: WarpSpeedTextProps) 
                 className="absolute inset-0 w-full h-full bg-[radial-gradient(circle_at_center,rgba(6,182,212,0.1)_0%,transparent_50%)] animate-pulse"
                 style={{ width: '100%', height: '100%', animationDelay: '0.5s' }}
               />
+              {/* Particles effect */}
+              <div className="absolute inset-0 w-full h-full overflow-hidden">
+                {Array.from({ length: 15 }, (_, i) => (
+                  <div
+                    key={i}
+                    className="absolute w-0.5 h-0.5 bg-cyan-400/30 rounded-full animate-ping"
+                    style={{
+                      left: `${Math.random() * 100}%`,
+                      top: `${Math.random() * 100}%`,
+                      animationDelay: `${Math.random() * 2 + 0.5}s`,
+                      animationDuration: `${1.5 + Math.random() * 2}s`
+                    }}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
