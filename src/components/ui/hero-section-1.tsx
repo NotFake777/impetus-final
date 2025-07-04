@@ -9,8 +9,8 @@ import ShinyText from '@/components/ui/shiny-text'
 import TrueFocus from '@/components/ui/true-focus'
 import BlurText from '@/components/ui/blur-text'
 import Aurora from '@/components/ui/aurora'
-import { StarBorder } from '@/components/ui/star-border'
 import { AvatarStack } from '@/components/ui/avatar-stack'
+import { PulsatingButton } from '@/components/magicui/pulsating-button'
 import { cn } from '@/lib/utils'
 
 const transitionVariants = {
@@ -85,7 +85,7 @@ export function HeroSection() {
                                             sentence="Nosso Negócio"
                                             manualMode={false}
                                             blurAmount={3}
-                                            borderColor="#8b5cf6"
+                                            borderColor="#5227FF"
                                             animationDuration={1.5}
                                             pauseBetweenAnimations={2}
                                         />
@@ -352,46 +352,41 @@ const HeroHeader = () => {
                                 </ul>
                             </div>
                             <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
-                                <StarBorder
-                                    as={Link}
-                                    href="#"
-                                    color="#000000"
-                                    textColor="#000000"
-                                    backgroundColor="#ffffff"
-                                    speed="4s"
-                                    className={cn(
-                                        "transition-all duration-300",
-                                        isScrolled && 'lg:hidden'
-                                    )}
-                                >
-                                    Login
-                                </StarBorder>
+                                <Link href="#" className={cn(
+                                    "transition-all duration-300",
+                                    isScrolled && 'lg:hidden'
+                                )}>
+                                    <PulsatingButton 
+                                        pulseColor="#ffffff"
+                                        className="bg-white text-black hover:bg-gray-100"
+                                    >
+                                        Login
+                                    </PulsatingButton>
+                                </Link>
                                 
-                                <StarBorder
-                                    as={Link}
-                                    href="#"
-                                    color="hsl(var(--primary))"
-                                    speed="5s"
-                                    className={cn(
-                                        "transition-all duration-300",
-                                        isScrolled && 'lg:hidden'
-                                    )}
-                                >
-                                    Sign Up
-                                </StarBorder>
+                                <Link href="#" className={cn(
+                                    "transition-all duration-300",
+                                    isScrolled && 'lg:hidden'
+                                )}>
+                                    <PulsatingButton 
+                                        pulseColor="#000000"
+                                        className="bg-black text-white hover:bg-gray-900"
+                                    >
+                                        Sign Up
+                                    </PulsatingButton>
+                                </Link>
                                 
-                                <StarBorder
-                                    as={Link}
-                                    href="#"
-                                    color="hsl(var(--primary))"
-                                    speed="4s"
-                                    className={cn(
-                                        "transition-all duration-300",
-                                        isScrolled ? 'lg:inline-flex' : 'hidden'
-                                    )}
-                                >
-                                    Get Started
-                                </StarBorder>
+                                <Link href="#" className={cn(
+                                    "transition-all duration-300",
+                                    isScrolled ? 'lg:inline-flex' : 'hidden'
+                                )}>
+                                    <PulsatingButton 
+                                        pulseColor="#000000"
+                                        className="bg-black text-white hover:bg-gray-900"
+                                    >
+                                        Get Started
+                                    </PulsatingButton>
+                                </Link>
                             </div>
                         </div>
                     </div>

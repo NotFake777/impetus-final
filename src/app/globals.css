@@ -66,9 +66,10 @@
     --color-4: 195 100% 63%;
     --color-5: 90 100% 63%;
   }
+  .theme {
+    --animate-pulse: pulse var(--duration) ease-out infinite;
+  }
 }
-
-
 
 @layer base {
   * {
@@ -115,4 +116,24 @@ body,
 .text-neutral-400,
 .text-slate-400 {
   color: #a3a3a3 !important;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@theme inline {
+  @keyframes pulse {
+  0%, 100% {
+    boxShadow: 0 0 0 0 var(--pulse-color);
+    }
+  50% {
+    boxShadow: 0 0 0 8px var(--pulse-color);
+    }
+  }
 }
