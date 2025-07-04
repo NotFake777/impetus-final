@@ -10,7 +10,7 @@ import TrueFocus from '@/components/ui/true-focus'
 import BlurText from '@/components/ui/blur-text'
 import Aurora from '@/components/ui/aurora'
 import { AvatarStack } from '@/components/ui/avatar-stack'
-import { PulsatingButton } from '@/components/magicui/pulsating-button'
+import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
 const transitionVariants = {
@@ -356,36 +356,33 @@ const HeroHeader = () => {
                                     "transition-all duration-300",
                                     isScrolled && 'lg:hidden'
                                 )}>
-                                    <PulsatingButton 
-                                        pulseColor="#ffffff"
+                                    <Button 
                                         className="bg-white text-black hover:bg-gray-100"
                                     >
                                         Login
-                                    </PulsatingButton>
+                                    </Button>
                                 </Link>
                                 
                                 <Link href="#" className={cn(
                                     "transition-all duration-300",
                                     isScrolled && 'lg:hidden'
                                 )}>
-                                    <PulsatingButton 
-                                        pulseColor="#000000"
+                                    <Button 
                                         className="bg-black text-white hover:bg-gray-900"
                                     >
                                         Sign Up
-                                    </PulsatingButton>
+                                    </Button>
                                 </Link>
                                 
                                 <Link href="#" className={cn(
                                     "transition-all duration-300",
                                     isScrolled ? 'lg:inline-flex' : 'hidden'
                                 )}>
-                                    <PulsatingButton 
-                                        pulseColor="#000000"
+                                    <Button 
                                         className="bg-black text-white hover:bg-gray-900"
                                     >
                                         Get Started
-                                    </PulsatingButton>
+                                    </Button>
                                 </Link>
                             </div>
                         </div>
