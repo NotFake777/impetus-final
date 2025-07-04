@@ -7,8 +7,57 @@ interface WarpSpeedTextProps {
 }
 
 export function WarpSpeedText({ children, className = '' }: WarpSpeedTextProps) {
+  const [translateX, setTranslateX] = React.useState(-32.155)
+  const [textTransform, setTextTransform] = React.useState({ x: -3.26815, y: 3.26815, scale: 0.8 })
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setTranslateX(prev => {
+        const newVal = prev + 0.2
+        return newVal > 10 ? -100 : newVal
+      })
+      setTextTransform(prev => ({
+        x: prev.x + (Math.random() - 0.5) * 0.05,
+        y: prev.y + (Math.random() - 0.5) * 0.05,
+        scale: 0.8 + Math.sin(Date.now() * 0.001) * 0.02
+      }))
+    }, 100)
+
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <div className={`bg-grid-small-neutral-200 hover:bg-grid-small-neutral-800 dark:bg-grid-small-neutral-800 group relative inline-block rounded-sm bg-neutral-100 px-2 py-2 transition duration-200 hover:bg-neutral-900 dark:bg-neutral-900 ${className}`}>
+      {/* Animated Background */}
+      <div className="absolute inset-0 h-full w-full overflow-hidden" style={{ opacity: 1 }}>
+        <div className="flex h-full w-[200%]" style={{ transform: `translateX(${translateX}%)` }}>
+          <div className="opacity-0 h-full w-full" style={{ opacity: 1 }}>
+            <div className="h-full w-full">
+              <div 
+                className="w-full h-full bg-gradient-to-r from-transparent via-blue-500/5 to-transparent opacity-60"
+                style={{ width: '100%', height: '100%' }}
+              />
+              <div 
+                className="absolute inset-0 w-full h-full bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.1)_0%,transparent_50%)] animate-pulse"
+                style={{ width: '100%', height: '100%' }}
+              />
+            </div>
+          </div>
+          <div className="opacity-0 h-full w-full" style={{ opacity: 1 }}>
+            <div className="h-full w-full">
+              <div 
+                className="w-full h-full bg-gradient-to-r from-transparent via-cyan-500/5 to-transparent opacity-60"
+                style={{ width: '100%', height: '100%' }}
+              />
+              <div 
+                className="absolute inset-0 w-full h-full bg-[radial-gradient(circle_at_center,rgba(6,182,212,0.1)_0%,transparent_50%)] animate-pulse"
+                style={{ width: '100%', height: '100%', animationDelay: '0.5s' }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      
       {/* SVG Gradients - Top */}
       <svg width="600" height="1" viewBox="0 0 600 1" fill="none" xmlns="http://www.w3.org/2000/svg" className="left-0 w-full absolute top-2">
         <path d="M0 0.5H800" stroke="url(#svgGradient-rm)"></path>
@@ -111,7 +160,10 @@ export function WarpSpeedText({ children, className = '' }: WarpSpeedTextProps) 
       </svg>
       
       {/* Main text */}
-      <span className="relative z-20 inline-block text-neutral-900 transition duration-200 [text-shadow:0_0_rgba(0,0,0,0.1)] group-hover:text-white dark:text-white">
+      <span 
+        className="relative z-20 inline-block text-neutral-900 transition duration-200 [text-shadow:0_0_rgba(0,0,0,0.1)] group-hover:text-white dark:text-white"
+        style={{ transform: `translateX(${textTransform.x}px) translateY(${textTransform.y}px) scale(${textTransform.scale})` }}
+      >
         {children}
       </span>
       
